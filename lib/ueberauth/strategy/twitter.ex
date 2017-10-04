@@ -32,8 +32,8 @@ defmodule Ueberauth.Strategy.Twitter do
     end
   end
 
-  def handle_callback!(%Plug.Conn{params: %{"token" => token}} = conn) do
-    fetch_user(conn, token)
+  def handle_callback!(%Plug.Conn{params: %{"token" => token, "token_secret" => token_secret}} = conn) do
+    fetch_user(conn, {token, token_secret})
   end
 
   @doc false
