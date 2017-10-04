@@ -42,10 +42,14 @@ defmodule Ueberauth.Strategy.Twitter do
   end
 
   @doc false
-  def handle_cleanup!(conn) do
+  def handle_cleanup!(%Plug.Conn{private: %{plug_session: _session}} = conn) do
     conn
     |> put_private(:twitter_user, nil)
     |> put_session(:twitter_token, nil)
+  end
+  def handle_cleanup!(%Plug.Conn{} = conn) do
+    conn
+    |> put_private(:twitter_user, nil)
   end
 
   @doc """
@@ -92,7 +96,7 @@ defmodule Ueberauth.Strategy.Twitter do
   Stores the raw information (including the token) obtained from the twitter callback.
   """
   def extra(conn) do
-    {token, _secret} = get_session(conn, :twitter_token)
+    {token, _secret} = conn.private[:twitter_token]
 
     %Extra{
       raw_info: %{
