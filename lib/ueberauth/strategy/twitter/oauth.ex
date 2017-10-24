@@ -21,7 +21,7 @@ defmodule Ueberauth.Strategy.Twitter.OAuth do
     opts
     |> client
     |> to_url(:access_token)
-    |> Internal.get([{"oauth_verifier", verifier}], consumer(client()), token, token_secret)
+    |> Internal.get([{"oauth_verifier", verifier}], consumer(client(opts)), token, token_secret)
     |> decode_response
   end
 
@@ -39,19 +39,18 @@ defmodule Ueberauth.Strategy.Twitter.OAuth do
   end
 
   def client(opts \\ []) do
-    config = Application.get_env(:ueberauth, __MODULE__)
-
     @defaults
-    |> Keyword.merge(config)
     |> Keyword.merge(opts)
     |> Enum.into(%{})
   end
 
-  def get(url, access_token), do: get(url, [], access_token)
-  def get(url, params, {token, token_secret}) do
-    client()
+  def get(url, access_token, opts \\ []), do: get(url, [], access_token, opts)
+
+  def get(url, params, {token, token_secret}, opts) do
+    opts
+    |> client
     |> to_url(url)
-    |> Internal.get(params, consumer(client()), token, token_secret)
+    |> Internal.get(params, consumer(client(opts)), token, token_secret)
   end
 
   def request_token(params \\ [], opts \\ []) do
