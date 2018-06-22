@@ -63,7 +63,7 @@ _Note_: Sessions are required for this strategy.
     end
     ```
 
-1. You controller needs to implement callbacks to deal with `Ueberauth.Auth` and `Ueberauth.Failure` responses.
+1. Your controller needs to implement callbacks to deal with `Ueberauth.Auth` and `Ueberauth.Failure` responses.
 
 For an example implementation see the [Überauth Example](https://github.com/ueberauth/ueberauth_example) application.
 
@@ -72,6 +72,13 @@ For an example implementation see the [Überauth Example](https://github.com/ueb
 Depending on the configured url you can initiate the request through:
 
     /auth/twitter
+
+## Development mode
+
+As noted when registering your application on the Twitter Developer site, you need to explicitly specify the `oauth_callback` url.  While in development, this is an example url you need to enter.
+
+    Website - http://127.0.0.1
+    Callback URL - http://127.0.0.1:4000/auth/twitter/callback
 
 ## License
 
