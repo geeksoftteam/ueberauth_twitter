@@ -6,6 +6,7 @@ defmodule UeberauthTwitter.Mixfile do
 
   def project do
     [app: :ueberauth_twitter,
+     organization: "finotech",
      version: @version,
      name: "Ueberauth Twitter Strategy",
      package: package(),
@@ -28,7 +29,7 @@ defmodule UeberauthTwitter.Mixfile do
      {:httpoison, "~> 1.0"},
      {:oauther, "~> 1.1"},
      {:poison, "~> 3.0"},
-     {:ueberauth, github: "geeksoftteam/ueberauth"},
+     {:ueberauth, "~> 0.5.0", organization: "finotech"},
 
      # dev/test dependencies
      {:earmark, ">= 0.0.0", only: :dev},
